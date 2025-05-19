@@ -14,8 +14,8 @@ const VenteJour = () => {
       try {
         // Fetch orders and all products concurrently
         const [ordersResponse, productsResponse] = await Promise.all([
-          axios.get("http://localhost:3000/api/orders"),
-          axios.get("http://localhost:3000/api/products")
+          axios.get("http://5.189.179.133:3000/api/orders"),
+          axios.get("http://5.189.179.133:3000/api/products")
         ]);
 
         const rows = ordersResponse.data;

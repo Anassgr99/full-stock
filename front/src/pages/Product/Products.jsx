@@ -52,7 +52,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/products")
+      .get("http://5.189.179.133:3000/api/products")
       .then((res) => setProducts(res.data))
       .catch(() => alert("Erreur lors du chargement des produits"));
   }, []);
@@ -60,7 +60,7 @@ const Products = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm("Supprimer ce produit ?")) return;
     try {
-      await axios.delete(`http://localhost:3000/api/products/${id}`);
+      await axios.delete(`http://5.189.179.133:3000/api/products/${id}`);
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch {
       alert("Erreur de suppression.");

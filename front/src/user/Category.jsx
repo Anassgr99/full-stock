@@ -16,7 +16,7 @@ const Category = () => {
  //console.log("Available icons:", Object.keys(icons));
   useEffect(() => {
     // Fetch categories from backend
-    fetch('http://localhost:3000/api/categorys')
+    fetch('http://5.189.179.133:3000/api/categorys')
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => //console.error('Error fetching categories:', error));
@@ -35,7 +35,7 @@ const Category = () => {
   }, [searchQuery, categoryDetails]);
 
   const getCategoryDetails = (categoryId) => {
-    fetch(`http://localhost:3000/api/productsC/${categoryId}`)
+    fetch(`http://5.189.179.133:3000/api/productsC/${categoryId}`)
       .then((response) => response.json())
       .then((data) => {
         setCategoryDetails(data);

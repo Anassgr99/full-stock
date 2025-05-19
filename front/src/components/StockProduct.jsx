@@ -15,7 +15,7 @@ const StockProduct = () => {
   const fetchStockData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/api/store-products");
+      const response = await axios.get("http://5.189.179.133:3000/api/store-products");
       setStockData(response.data);
     } catch {
       setError("Impossible de récupérer les données");
