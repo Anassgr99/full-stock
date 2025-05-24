@@ -82,7 +82,7 @@ const Tables = ({ onClick }) => {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const response = await axios.get("http://5.189.179.133:3000/api/stores");
+        const response = await axios.get("http://localhost:3000/api/stores");
         setTables(response.data); // Assuming the backend returns a list of tables
       } catch (error) {
         //console.error("Error fetching table data:", error);
@@ -94,7 +94,7 @@ const Tables = ({ onClick }) => {
   // Fetch customers from the backend
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get("http://5.189.179.133:3000/api/customers");
+      const response = await axios.get("http://localhost:3000/api/customers");
       //console.log("Fetched customers data:", response.data);
       if (Array.isArray(response.data)) {
         setCustomers(response.data); // Update state with the customers array

@@ -14,13 +14,13 @@ const UserCards = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://5.189.179.133:3000/api/users").then((res) => setUsers(res.data));
+    axios.get("http://localhost:3000/api/users").then((res) => setUsers(res.data));
   }, []);
 
   const deleteUser = async (id) => {
     if (window.confirm("Supprimer cet utilisateur ?")) {
       try {
-        await axios.delete(`http://5.189.179.133:3000/api/users/${id}`);
+        await axios.delete(`http://localhost:3000/api/users/${id}`);
         setUsers(users.filter((u) => u.id !== id));
       } catch (error) {
         alert("Erreur lors de la suppression");

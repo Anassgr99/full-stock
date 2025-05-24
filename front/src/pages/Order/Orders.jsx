@@ -39,7 +39,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://5.189.179.133:3000/api/Orders");
+        const response = await axios.get("http://localhost:3000/api/Orders");
         const formattedData = response.data.map((order) => ({
           ...order,
           order_date: formatDate(order.order_date),
@@ -54,7 +54,7 @@ const Orders = () => {
  useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://5.189.179.133:3000/api/Orders");
+      const response = await axios.get("http://localhost:3000/api/Orders");
       const formattedData = response.data.map((order) => ({
         ...order,
         order_date: formatDate(order.order_date),

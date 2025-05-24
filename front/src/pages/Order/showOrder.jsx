@@ -20,7 +20,7 @@ const ShowOrder = () => {
     const fetchOrder = async () => {
       try {
         const response = await axios.get(
-          `http://5.189.179.133:3000/api/orders/${id}`
+          `http://localhost:3000/api/orders/${id}`
         );
         setOrder(response.data);
       } catch (error) {

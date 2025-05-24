@@ -54,7 +54,7 @@ const CartItems = () => {
         };
   
         const response = await axios.post(
-          "http://5.189.179.133:3000/api/orders",
+          "http://localhost:3000/api/orders",
           orderData
         );
        
@@ -105,7 +105,7 @@ const CartItems = () => {
           })),
         };
         const response = await axios.post(
-          "http://5.189.179.133:3000/api/orders",
+          "http://localhost:3000/api/orders",
           orderData
         );
         toast.success(
@@ -148,7 +148,7 @@ const CartItems = () => {
 
     try {
       // Send the returnData to your backend API
-      await axios.post("http://5.189.179.133:3000/api/returns", returnData);
+      await axios.post("http://localhost:3000/api/returns", returnData);
       toast.success("Return processed successfully!", {
         position: "top-center",
         autoClose: 5000,
