@@ -30,7 +30,7 @@ const ShowCustomer = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/customers/${id}`).then((res) => setCustomer(res.data)).catch(() => alert("Erreur lors du chargement."));
+    axios.get(`http://5.189.179.133:3000/api/customers/${id}`).then((res) => setCustomer(res.data)).catch(() => alert("Erreur lors du chargement."));
   }, [id]);
 
   if (!customer) {

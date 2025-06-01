@@ -77,7 +77,7 @@ const AddCategory = () => {
         formData.append("icon", iconFile); // Then append the file
 
         // Notice: Do not set the Content-Type header manually when using FormData
-        const uploadResponse = await axios.post("http://localhost:3000/api/upload", formData);
+        const uploadResponse = await axios.post("http://5.189.179.133:3000/api/upload", formData);
         iconValue = uploadResponse.data.iconName;
       }
 
@@ -86,7 +86,7 @@ const AddCategory = () => {
       const categoryPayload = { ...categoryData, icon: iconValue };
 
       // Post the category data to your API
-      await axios.post("http://localhost:3000/api/categorys", categoryPayload);
+      await axios.post("http://5.189.179.133:3000/api/categorys", categoryPayload);
 
       // Reset form fields and close modal
       setIsModalOpen(false);
