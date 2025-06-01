@@ -19,6 +19,9 @@ import DownloadExcelButtonProducts from "../Product/Excel/BackupExcelProducts";
 import { ThemeContext } from "../../context/ThemeContext";
 import ReactApexChart from "react-apexcharts";
 
+import { MaterialReactTable } from "material-react-table";
+import { Box, IconButton } from "@mui/material";
+
 const StatCard = ({ icon, label, value, color }) => {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
@@ -84,9 +87,6 @@ const Products = () => {
   );
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
-  const totalProducts = products.length;
-  const totalStock = products.reduce((sum, p) => sum + (p.quantity || 0), 0);
-
   const marginData = useMemo(
     () =>
       products.map((p) => {
@@ -135,12 +135,8 @@ const Products = () => {
       text: title,
       style: { fontSize: "16px", color: isDark ? "#FFF" : "#000" },
     },
-    legend: {
-      show: false,
-    },
-    tooltip: {
-      y: { formatter: (val) => val.toFixed(0) },
-    },
+    legend: { show: false },
+    tooltip: { y: { formatter: (val) => val.toFixed(0) } },
     dataLabels: { style: { colors: [isDark ? "#FFF" : "#000"] } },
   });
 
@@ -166,7 +162,7 @@ const Products = () => {
         <UploadExcel />
         <ExcelOptionsFirstTime />
         <DownloadExcelButtonProducts />
-        <input
+        {/* <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -198,104 +194,221 @@ const Products = () => {
               ? "bg-gray-700 text-white border-gray-600"
               : "bg-white text-black border-gray-300"
           }`}
-        />
+        /> */}
       </div>
 
-      <div
-        className={`overflow-x-auto rounded-3xl shadow-xl border ${
-          isDark ? "bg-gray-900 border-gray-700" : "bg-gray-50 border-gray-300"
-        } p-8`}
-      >
-        <table className="min-w-full text-base">
-          <thead
-            className={
-              isDark
-                ? "bg-gradient-to-r from-blue-800 to-indigo-700 text-white"
-                : "bg-gradient-to-r from-blue-200 to-indigo-200 text-indigo-900"
-            }
-          >
-            <tr>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Produit
-              </th>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Code
-              </th>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Achat
-              </th>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Vente
-              </th>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Stock
-              </th>
-              <th className="px-6 py-3 text-left font-bold uppercase tracking-widest">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginated.map((p, index) => (
-              <tr
-                key={p.id}
-                className={`border-b ${
-                  index % 2 === 0
-                    ? isDark
-                      ? "bg-gray-900"
-                      : "bg-gray-100"
-                    : isDark
-                    ? "bg-gray-800"
-                    : "bg-white"
-                } hover:bg-indigo-50 transition duration-200 ease-in-out`}
+      <MaterialReactTable
+        columns={[
+          {
+            accessorKey: "name",
+            header: "Produit",
+            Cell: ({ cell }) => (
+              <span style={{ color: isDark ? "#F1F5F9" : "#1E293B" }}>
+                {cell.getValue()}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "code",
+            header: "Code",
+            Cell: ({ cell }) => (
+              <span style={{ color: isDark ? "#F1F5F9" : "#1E293B" }}>
+                {cell.getValue()}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "buying_price",
+            header: "Achat",
+            Cell: ({ cell }) => (
+              <span className="text-red-700 font-bold">
+                {cell.getValue()} DH
+              </span>
+            ),
+          },
+          {
+            accessorKey: "selling_price",
+            header: "Vente",
+            Cell: ({ cell }) => (
+              <span className="text-green-700 font-bold">
+                {cell.getValue()} DH
+              </span>
+            ),
+          },
+          {
+            accessorKey: "quantity",
+            header: "Stock",
+            Cell: ({ cell }) => (
+              <span
+                className={
+                  cell.getValue() <= 0
+                    ? "text-red-700 font-bold"
+                    : "text-gray-400 font-semibold"
+                }
               >
-                <td className="px-6 py-3 font-semibold text-indigo-800">
-                  {p.name}
-                </td>
-                <td className="px-6 py-3 font-mono text-blue-700">{p.code}</td>
-                <td className="px-6 py-3 text-red-700 font-bold">
-                  {p.buying_price} DH
-                </td>
-                <td className="px-6 py-3 text-green-700 font-bold">
-                  {p.selling_price} DH
-                </td>
-                <td
-                  className={`px-6 py-3 ${
-                    p.quantity <= 0
-                      ? "text-red-700 font-bold"
-                      : "text-gray-400 font-semibold"
-                  }`}
+                {cell.getValue()}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "category.name",
+            header: "Categorie",
+            Cell: ({ cell }) => (
+              <span style={{ color: isDark ? "#F1F5F9" : "#1E293B" }}>
+                {cell.getValue()}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "category.icon",
+            header: "Brand",
+            Cell: ({ cell }) => (
+              <span style={{ color: isDark ? "#F1F5F9" : "#1E293B" }}>
+                {cell.getValue()}
+              </span>
+            ),
+          },
+          {
+            header: "Actions",
+            Cell: ({ row }) => (
+              <Box sx={{ display: "flex", gap: "0.5rem" }}>
+                <IconButton
+                  color="primary"
+                  onClick={() => navigate(`/showProduct/${row.original.id}`)}
                 >
-                  {p.quantity}
-                </td>
-                <td className="px-6 py-3">
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => navigate(`/showProduct/${p.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-lg"
-                    >
-                      <FiEye /> Voir
-                    </button>
-                    <button
-                      onClick={() => navigate(`/editProduct/${p.id}`)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition shadow-lg"
-                    >
-                      <FiEdit2 /> Modifier
-                    </button>
-                    <button
-                      onClick={() => deleteProduct(p.id)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition shadow-lg"
-                    >
-                      <FiTrash2 /> Supprimer
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  <FiEye />
+                </IconButton>
+                <IconButton
+                  color="warning"
+                  onClick={() => navigate(`/editProduct/${row.original.id}`)}
+                >
+                  <FiEdit2 />
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => deleteProduct(row.original.id)}
+                >
+                  <FiTrash2 />
+                </IconButton>
+              </Box>
+            ),
+          },
+        ]}
+        data={paginated}
+        muiTableHeadCellProps={{
+          sx: {
+            backgroundColor: isDark ? "#1E293B" : "#E0F2FE",
+            color: isDark ? "#F1F5F9" : "#1E293B",
+            fontWeight: "bold",
+          },
+        }}
+        muiBottomToolbarProps={{
+          sx: {
+            backgroundColor: isDark ? "#0F172A" : "#E0F2FE",
 
-        <div className="flex items-center justify-between my-6">
+            // الجذر ديال التولبار
+            color: isDark ? "#F8FAFC" : "#1E293B",
+
+            // النص بحال "Rows per page"
+            "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
+              {
+                color: isDark ? "#F8FAFC" : "#1E293B",
+                fontWeight: 500,
+              },
+
+            // الرقم المختار (10 مثلاً)
+            "& .MuiSelect-select": {
+              color: isDark ? "#F8FAFC" : "#1E293B",
+            },
+
+            // السهم ▼
+            "& .MuiSelect-icon": {
+              color: isDark ? "#F8FAFC" : "#1E293B",
+            },
+
+            // الأسهم ← →
+            "& .MuiSvgIcon-root": {
+              color: isDark ? "#F8FAFC" : "#1E293B",
+            },
+
+            // input الداخلي فـ select
+            "& .MuiInputBase-root": {
+              color: isDark ? "#F8FAFC" : "#1E293B",
+            },
+
+            "& .MuiInputBase-input": {
+              color: isDark ? "#F8FAFC" : "#1E293B",
+            },
+          },
+        }}
+        muiTopToolbarProps={{
+          sx: {
+            backgroundColor: isDark ? "#0F172A" : "#E0F2FE",
+            color: isDark ? "#F1F5F9" : "#1E293B",
+          },
+        }}
+        muiTableBodyProps={{
+          sx: {
+            backgroundColor: isDark ? "#0F172A" : "#FFF",
+          },
+        }}
+        muiTableBodyRowProps={({ row }) => ({
+          sx: {
+            backgroundColor:
+              row.index % 2 === 0
+                ? isDark
+                  ? "#1F2937"
+                  : "#F3F4F6"
+                : isDark
+                ? "#374151"
+                : "#FFFFFF",
+            "&:hover": {
+              backgroundColor: isDark ? "#4B5563" : "#E0E7FF",
+            },
+          },
+        })}
+        icons={{
+          SearchIcon: (props) => (
+            <FiSearch {...props} color={isDark ? "#E0F2FE" : "#1E293B"} />
+          ),
+          ViewColumnIcon: (props) => (
+            <FiBox {...props} color={isDark ? "#E0F2FE" : "#1E293B"} />
+          ),
+          FilterListIcon: (props) => (
+            <FiBarChart2 {...props} color={isDark ? "#E0F2FE" : "#1E293B"} />
+          ),
+          MoreVertIcon: (props) => (
+            <FiTrendingUp {...props} color={isDark ? "#E0F2FE" : "#1E293B"} />
+          ),
+        }}
+        muiSearchTextFieldProps={{
+          placeholder: "🔍 Rechercher...",
+          variant: "outlined",
+          InputProps: {
+            sx: {
+              color: isDark ? "#F8FAFC" : "#1E293B", // لون النص
+              "& .MuiSvgIcon-root": {
+                color: isDark ? "#E0F2FE" : "#1E293B", // لون الأيقونات الداخلية
+              },
+            },
+          },
+          sx: {
+            backgroundColor: isDark ? "#1E293B" : "#FFF",
+            borderRadius: "8px",
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: isDark ? "#475569" : "#CBD5E1",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: isDark ? "#94A3B8" : "#60A5FA",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: isDark ? "#3B82F6" : "#2563EB",
+            },
+          },
+        }}
+      />
+
+      {/* <div className="flex items-center justify-between my-6">
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             className="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
@@ -311,38 +424,79 @@ const Products = () => {
           >
             Suivant ➡
           </button>
-        </div>
-      </div>
+        </div> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="col-span-2 rounded-2xl shadow-xl p-4 border border-violet-500">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div
+          className={`rounded-2xl shadow-xl p-4 border ${
+            isDark
+              ? "bg-gray-900 border-violet-700 text-white"
+              : "bg-white border-violet-300 text-gray-900"
+          }`}
+        >
           <h2 className="text-lg font-semibold mb-4">📈 Marge par produit</h2>
-          <ReactApexChart
-            options={chartOptions}
-            series={chartSeries}
-            type="bar"
-            height={300}
-          />
+          {chartSeries[0]?.data?.length ? (
+            <ReactApexChart
+              options={chartOptions}
+              series={chartSeries}
+              type="bar"
+              height={300}
+            />
+          ) : (
+            <p className="text-sm italic text-gray-400">
+              Aucune donnée disponible
+            </p>
+          )}
         </div>
-        <div className="rounded-2xl shadow-xl p-4 border border-blue-500">
+
+        <div
+          className={`rounded-2xl shadow-xl p-4 border ${
+            isDark
+              ? "bg-gray-900 border-blue-700 text-white"
+              : "bg-white border-blue-300 text-gray-900"
+          }`}
+        >
+          <h2 className="text-lg font-semibold mb-4">
+            📊 Répartition des quantités
+          </h2>
           <ReactApexChart
-            options={pieOptions("Répartition des quantités")}
+            options={pieOptions("")}
             series={pieQuantity}
             type="donut"
             height={300}
           />
         </div>
-        <div className="rounded-2xl shadow-xl p-4 border border-green-500">
+
+        <div
+          className={`rounded-2xl shadow-xl p-4 border ${
+            isDark
+              ? "bg-gray-900 border-green-700 text-white"
+              : "bg-white border-green-300 text-gray-900"
+          }`}
+        >
+          <h2 className="text-lg font-semibold mb-4">
+            💰 Total Achat par produit
+          </h2>
           <ReactApexChart
-            options={pieOptions("Total Achat par produit")}
+            options={pieOptions("")}
             series={pieBuying}
             type="donut"
             height={300}
           />
         </div>
-        <div className="rounded-2xl shadow-xl p-4 border border-yellow-500">
+
+        <div
+          className={`rounded-2xl shadow-xl p-4 border ${
+            isDark
+              ? "bg-gray-900 border-yellow-700 text-white"
+              : "bg-white border-yellow-300 text-gray-900"
+          }`}
+        >
+          <h2 className="text-lg font-semibold mb-4">
+            🛒 Total Vente par produit
+          </h2>
           <ReactApexChart
-            options={pieOptions("Total Vente par produit")}
+            options={pieOptions("")}
             series={pieSelling}
             type="donut"
             height={300}

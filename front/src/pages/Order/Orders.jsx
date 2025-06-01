@@ -162,6 +162,13 @@ const Orders = () => {
       ),
     },
     {
+      accessorKey: "profit",
+      header: "Profit",
+      Cell: ({ row }) => (
+        <span className="font-semibold">{row.original.total-row.original.buying_price*row.original.quantity} DH</span>
+      ),
+    },
+    {
       accessorKey: "actions",
       header: "Actions",
       Cell: ({ row }) => (

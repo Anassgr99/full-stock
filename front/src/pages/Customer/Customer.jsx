@@ -37,10 +37,10 @@ export const Customer = () => {
     }
   };
 
-  const filtered = customers.filter((c) =>
-    c.name.toLowerCase().includes(searchName.toLowerCase()) &&
-    c.address.toLowerCase().includes(filterCity.toLowerCase())
-  );
+ const filtered = customers.filter((c) =>
+  (c.name?.toLowerCase().includes(searchName.toLowerCase()) ?? false) &&
+  (c.address?.toLowerCase().includes(filterCity.toLowerCase()) ?? false)
+);
 
   const paginated = filtered.slice(
     (currentPage - 1) * customersPerPage,

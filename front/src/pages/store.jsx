@@ -3,31 +3,31 @@ import { MaterialReactTable } from "material-react-table";
 import axios from "axios";
 import { FiAlertTriangle } from "react-icons/fi";
 import EditQuantityForm from "./EditQuantityForm";
+import ReduceQuantityForm from "./ReduceQuantityForm";
 import { ThemeContext } from "../context/ThemeContext";
 import DownloadStoreProductsExcelButton from "./Product/Excel/BackupExcelStoreProducts";
 
 const StoreProductTable = () => {
   const [storeProducts, setStoreProducts] = useState([]);
-  const [stores, setStores] = useState([]); // New state for stores
+  const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [reducingProduct, setReducingProduct] = useState(null);
   const { theme } = useContext(ThemeContext);
 
   const fetchStoreProducts = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const [response, storeResponse] = await Promise.all([
         axios.get("http://localhost:3000/api/store-products"),
         axios.get("http://localhost:3000/api/stores"),
       ]);
-      //console.log(response.data);
-
       setStoreProducts(response.data);
-      setStores(storeResponse.data); // Set stores data
-      setLoading(false); // Stop loading
+      setStores(storeResponse.data);
     } catch (error) {
-      //console.error("Error fetching data:", error);
-      setLoading(false); // Stop loading on error
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,7 +41,16 @@ const StoreProductTable = () => {
 
   const closeEditQuantityForm = () => {
     setEditingProduct(null);
-    fetchStoreProducts(); // Refresh data after editing
+    fetchStoreProducts();
+  };
+
+  const openReduceQuantityForm = (storeId, productId, currentQuantity) => {
+    setReducingProduct({ storeId, productId, currentQuantity });
+  };
+
+  const closeReduceQuantityForm = () => {
+    setReducingProduct(null);
+    fetchStoreProducts();
   };
 
   const columns = [
@@ -53,44 +62,32 @@ const StoreProductTable = () => {
       accessorKey: "quantity",
       header: "Quantité",
       Cell: ({ row }) => {
-        const quantity = row.original.quantity; // Current quantity
-        const quantityAlert = row.original.quantity_alert; // Alert threshold
-
-        let alertStatus = "";
+        const quantity = row.original.quantity;
+        const quantityAlert = row.original.quantity_alert;
         let alertColor = "";
         let icon = null;
 
         if (quantity > quantityAlert) {
-          alertStatus = "Good ";
           alertColor = "bg-green-500";
-          icon = <span className=" text-green-500"> </span>; // Green checkmark icon
-        } else if (quantity >= quantityAlert / 2 && quantity <= quantityAlert) {
-          alertStatus = "Low ";
-          alertColor = "bg-yellow-500 ";
-          icon = (
-            <span className="fi fi-alert-circle text-blue-500">
-              {" "}
-              <FiAlertTriangle />
-            </span>
-          ); // Yellow warning icon
-        } else if (quantity < quantityAlert / 2) {
-          alertStatus = "Warning ";
+        } else if (quantity >= quantityAlert / 2) {
+          alertColor = "bg-yellow-500";
+          icon = <FiAlertTriangle className="text-yellow-700" />;
+        } else {
           alertColor = "bg-red-500";
-          icon = <i className="fi fi-x-circle text-red-500"></i>; // Red error icon
+          icon = <i className="fi fi-x-circle text-red-500"></i>;
         }
 
         return (
-          <div
-            className={`flex items-center justify-center rounded-2xl h-7 w-7 ${alertColor} font-semibold`}
-          >
-            <span>{quantity}</span>
+          <div className={`flex items-center justify-center rounded-2xl h-7 w-7 ${alertColor} font-semibold`}>
+            {icon}
+            <span className="ml-1">{quantity}</span>
           </div>
         );
       },
     },
     {
       accessorKey: "store_name",
-      header: "Store Name",
+      header: "Nom du magasin",
     },
     {
       accessorKey: "actions",
@@ -98,12 +95,20 @@ const StoreProductTable = () => {
       Cell: ({ row }) => {
         const { store_id, product_id, quantity } = row.original;
         return (
-          <button
-            className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg flex items-center gap-2"
-            onClick={() => openEditQuantityForm(store_id, product_id, quantity)}
-          >
-            Ajouter Quantité
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="px-3 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg"
+              onClick={() => openEditQuantityForm(store_id, product_id, quantity)}
+            >
+              Ajouter
+            </button>
+            <button
+              className="px-3 py-2 text-white bg-red-500 hover:bg-red-600 rounded-lg"
+              onClick={() => openReduceQuantityForm(store_id, product_id, quantity)}
+            >
+              Réduire
+            </button>
+          </div>
         );
       },
     },
@@ -123,33 +128,14 @@ const StoreProductTable = () => {
 
   return (
     <>
-      <div  className={`col-span-12  ${
-            theme === "dark"
-              ? "bg-gray-900 text-white"
-              : "bg-white text-gray-800"
-          } shadow-lg h-[500px]`}>
-        <div
-          className={`col-span-12  ${
-            theme === "dark"
-              ? "bg-gray-900 text-white"
-              : "bg-white text-gray-800"
-          } shadow-lg`}
-        >
-          <h3 className="text-lg p-4 rounded-t-xl font-medium">
-            Produits du magasin
-          </h3>
+      <div className={`col-span-12 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"} shadow-lg h-[500px]`}>
+        <div className={`col-span-12 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"} shadow-lg`}>
+          <h3 className="text-lg p-4 rounded-t-xl font-medium">Produits du magasin</h3>
         </div>
         <div className="flex justify-end space-x-2 mr-4">
           <DownloadStoreProductsExcelButton />
         </div>
-
-        <div
-          className={`col-span-12 p-4  ${
-            theme === "dark"
-              ? "bg-gray-900 text-white"
-              : "bg-white text-gray-800"
-          } shadow-lg`}
-        >
+        <div className={`col-span-12 p-4 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-800"} shadow-lg`}>
           <MaterialReactTable
             columns={columns}
             data={storeProducts}
@@ -209,6 +195,14 @@ const StoreProductTable = () => {
           currentQuantity={editingProduct.currentQuantity}
           store={stores}
           onClose={closeEditQuantityForm}
+        />
+      )}
+      {reducingProduct && (
+        <ReduceQuantityForm
+          storeId={reducingProduct.storeId}
+          productId={reducingProduct.productId}
+          currentQuantity={reducingProduct.currentQuantity}
+          onClose={closeReduceQuantityForm}
         />
       )}
     </>

@@ -161,6 +161,7 @@ const ShowProduct = () => {
               <Detail label="Taxe" value={`${product.tax} %`} />
               <Detail label="Type de taxe" value={product.tax_type} />
               <Detail label="Catégorie" value={<span className="bg-blue-500/30 px-2 py-1 rounded-lg font-bold text-xs">{product.category_name}</span>} />
+              <Detail label="Brand" value={<span className="bg-blue-500/30 px-2 py-1 rounded-lg font-bold text-xs">{product.category_icon}</span>} />
               <Detail label="Unité" value={<span className="bg-yellow-400/30 px-2 py-1 rounded-lg font-bold text-xs">{product.unit_name}</span>} />
             </div>
 
