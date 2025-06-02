@@ -1,75 +1,40 @@
-
 import db from '../config/db.js';
 
 // Get all units
 export const getAllUnit = async () => {
-  try {
-    const sql = 'SELECT * FROM units';
-    const units = await query(sql);
-    return units;
-  } catch (error) {
-    throw new Error(`Error fetching all units: ${error.message}`);
-  }
+  const [units] = await db.query('SELECT * FROM units');
+  return units;
 };
 
 // Get unit by ID
 export const getUnitById = async (id) => {
-  try {
-    const sql = 'SELECT * FROM units WHERE id = ?';
-    const [unit] = await query(sql, [id]);
-    return unit;
-  } catch (error) {
-    throw new Error(`Error fetching unit by ID: ${error.message}`);
-  }
+  const [units] = await db.query('SELECT * FROM units WHERE id = ?', [id]);
+  return units[0];
 };
 
 // Create a new unit
 export const createUnit = async (unitData) => {
-  try {
-    const sql = `
-      INSERT INTO units (name, slug, short_code, created_at, updated_at)
-      VALUES (?, ?, ?, NOW(), NOW())`;
-    const [result] = await query(sql, [unitData.name, unitData.slug, unitData.short_code]);
-    return result;
-  } catch (error) {
-    throw new Error(`Error creating unit: ${error.message}`);
-  }
+  const [result] = await db.query(`
+    INSERT INTO units (name, slug, short_code, created_at, updated_at)
+    VALUES (?, ?, ?, NOW(), NOW())
+  `, [unitData.name, unitData.slug, unitData.short_code]);
+
+  return result;
 };
 
 // Update a unit
 export const updateUnit = async (id, unitData) => {
-  try {
-    const sql = `
-      UPDATE units
-      SET name = ?, slug = ?, short_code = ?, updated_at = NOW()
-      WHERE id = ?`;
-    const [result] = await query(sql, [unitData.name, unitData.slug, unitData.short_code, id]);
-    return result;
-  } catch (error) {
-    throw new Error(`Error updating unit: ${error.message}`);
-  }
+  const [result] = await db.query(`
+    UPDATE units
+    SET name = ?, slug = ?, short_code = ?, updated_at = NOW()
+    WHERE id = ?
+  `, [unitData.name, unitData.slug, unitData.short_code, id]);
+
+  return result;
 };
 
 // Delete a unit
 export const deleteUnit = async (id) => {
-  try {
-    const sql = 'DELETE FROM units WHERE id = ?';
-    const [result] = await query(sql, [id]);
-    return result;
-  } catch (error) {
-    throw new Error(`Error deleting unit: ${error.message}`);
-  }
-};
-
-// Helper function to handle database queries
-const query = (sql, params) => {
-  return new Promise((resolve, reject) => {
-    db.query(sql, params, (err, results) => {
-      if (err) {
-        reject(new Error(`Database Error: ${err.message}`));
-      } else {
-        resolve(results);
-      }
-    });
-  });
+  const [result] = await db.query('DELETE FROM units WHERE id = ?', [id]);
+  return result;
 };

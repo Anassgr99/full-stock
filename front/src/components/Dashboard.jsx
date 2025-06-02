@@ -25,7 +25,7 @@
       const fetchData = async () => {
         const token = localStorage.getItem("token");
         const urls = ["store-products", "orders", "customers", "users"].map(
-          (endpoint) => `http://5.189.179.133:3000/api/${endpoint}`
+          (endpoint) => `http://localhost:3000/api/${endpoint}`
         );
         const fetchWithAuth = (url) =>
           fetch(url, {

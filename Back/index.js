@@ -76,7 +76,7 @@ try {
 // Étape 4 : Ajout des middlewares avec gestion d'erreur
 try {
   app.use(express.json());
-  app.use(cors({ origin: "http://5.189.179.133:5173" }));
+  app.use(cors({ origin: "http://localhost:5173" }));
   apm.logger.info("✅ Middlewares Express activés");
 } catch (error) {
   apm.logger.error("❌ Erreur lors de l'application des middlewares:", error);
@@ -132,11 +132,7 @@ process.on("unhandledRejection", (reason, promise) => {
 });
 
 // Étape 9 : Démarrage du serveur avec gestion d'erreur
-try {
-  app.listen(PORT, () => {
+app.listen(PORT, () => {
     apm.logger.info(`🚀 Serveur démarré sur le port ${PORT}`);
   });
-} catch (error) {
-  apm.logger.error("❌ Erreur lors du démarrage du serveur:", error);
-  apm.captureError(error);
-}
+

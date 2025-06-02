@@ -1,12 +1,9 @@
-const path = require('path');
+import path from 'path';
 
 // Define the absolute path for the images directory
 const absoluteImagesPath = '/var/www/react-app/images';
 
-const saveFile = (file) => {
-  // Construct the absolute path to the saved file
+export const saveFile = (file) => {
   const filePath = path.join(absoluteImagesPath, file.filename);
   return filePath;
 };
-
-module.exports = { saveFile };

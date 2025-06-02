@@ -1,32 +1,27 @@
 import db from "../config/db.js";
 
 // Get all return entries
-export const getAllRetourner = () => {
-  return new Promise((resolve, reject) => {
-    const query = `SELECT * FROM retourner`;
-    db.query(query, (err, results) => {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
+export const getAllRetourner = async () => {
+  const [results] = await db.query(`SELECT * FROM retourner`);
+  return results;
 };
 
 // Create a new return entry
-export const createRetourner = (retournData) => {
-  return new Promise((resolve, reject) => {
-    const query = `
-      INSERT INTO retourner (name_produit, name_user, quantity, return_date, store_name, note)
-      VALUES (?, ?, ?, NOW(), ?, ?)
-    `;
-    db.query(query, [
-      retournData.name_produit,
-      retournData.name_user,
-      retournData.quantity,
-      retournData.store_name,
-      retournData.note
-    ], (err, result) => {
-      if (err) return reject(err);
-      resolve(result.insertId);
-    });
-  });
+export const createRetourner = async (retournData) => {
+  const query = `
+    INSERT INTO retourner 
+    (name_produit, name_user, quantity, return_date, store_name, note)
+    VALUES (?, ?, ?, NOW(), ?, ?)
+  `;
+
+  const values = [
+    retournData.name_produit,
+    retournData.name_user,
+    retournData.quantity,
+    retournData.store_name,
+    retournData.note,
+  ];
+
+  const [result] = await db.query(query, values);
+  return result.insertId;
 };

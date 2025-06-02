@@ -23,7 +23,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`http://5.189.179.133:3000/api/users/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/users/${id}`);
         setCustomerData(response.data);
       } catch (error) {
         alert("Erreur de chargement des données.");
@@ -40,7 +40,7 @@ const EditUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://5.189.179.133:3000/api/users/${id}`, customerData);
+      await axios.put(`http://localhost:3000/api/users/${id}`, customerData);
       alert("Utilisateur mis à jour avec succès !");
       navigate(`/showUser/${id}`);
     } catch (error) {

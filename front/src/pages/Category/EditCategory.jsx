@@ -18,7 +18,7 @@ const EditCategory = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(`http://5.189.179.133:3000/api/categorys/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/categorys/${id}`);
         setCategory(response.data);
         setName(response.data.name);
         setSlug(response.data.slug);
@@ -56,7 +56,7 @@ const EditCategory = () => {
     setIsSubmitting(true);
     try {
       const categoryData = { name, slug, icon };
-      await axios.put(`http://5.189.179.133:3000/api/categorys/${id}`, categoryData);
+      await axios.put(`http://localhost:3000/api/categorys/${id}`, categoryData);
       alert('Category updated successfully!');
       navigate('/ShowCategories'); // Redirect to the categories page
     } catch (error) {

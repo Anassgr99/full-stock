@@ -19,7 +19,7 @@ const PrintOrder = () => {
       try {
         // Fetch order data
         const orderResponse = await axios.get(
-          `http://5.189.179.133:3000/api/Orders/${orderId}`
+          `http://localhost:3000/api/Orders/${orderId}`
         );
         const orderData = orderResponse.data;
         setOrder(orderData);
@@ -27,7 +27,7 @@ const PrintOrder = () => {
         // Fetch customer data based on customer_id from the order
         if (orderData.customer_id) {
           const customerResponse = await axios.get(
-            `http://5.189.179.133:3000/api/customers/${orderData.customer_id}`
+            `http://localhost:3000/api/customers/${orderData.customer_id}`
           );
           setCustomer(customerResponse.data);
         }

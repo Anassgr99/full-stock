@@ -15,7 +15,7 @@ const ShowProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://5.189.179.133:3000/api/products/${id}`);
+        const response = await axios.get(`http://localhost:3000/api/products/${id}`);
         setProduct(response.data);
       } catch (error) {
         alert("Erreur lors du chargement du produit.");

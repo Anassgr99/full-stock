@@ -15,7 +15,7 @@ const Purchases = () => {
   useEffect(() => {
     const fetchReturns = async () => {
       try {
-        const response = await axios.get("http://5.189.179.133:3000/api/returns");
+        const response = await axios.get("http://localhost:3000/api/returns");
         setReturns(response.data.data);
       } catch (error) {
         console.error("Error fetching returns:", error);

@@ -48,14 +48,14 @@ const Products = () => {
   const [minPrice, setMinPrice] = useState("");
   const [minStock, setMinStock] = useState("");
   const [page, setPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 400;
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://5.189.179.133:3000/api/products")
+      .get("http://localhost:3000/api/products")
       .then((res) => setProducts(res.data))
       .catch(() => alert("Erreur lors du chargement des produits"));
   }, []);
@@ -63,7 +63,7 @@ const Products = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm("Supprimer ce produit ?")) return;
     try {
-      await axios.delete(`http://5.189.179.133:3000/api/products/${id}`);
+      await axios.delete(`http://localhost:3000/api/products/${id}`);
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch {
       alert("Erreur de suppression.");
@@ -81,10 +81,6 @@ const Products = () => {
     [products, search, minPrice, minStock]
   );
 
-  const paginated = filtered.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage
-  );
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
   const marginData = useMemo(
@@ -294,7 +290,7 @@ const Products = () => {
             ),
           },
         ]}
-        data={paginated}
+        data={filtered}
         muiTableHeadCellProps={{
           sx: {
             backgroundColor: isDark ? "#1E293B" : "#E0F2FE",
