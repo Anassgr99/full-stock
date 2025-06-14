@@ -18,7 +18,7 @@ const CategoryDetails = ({ categoryDetails }) => {
     const fetchStockQuantities = async () => {
       try {
         const response = await fetch(
-          `http://5.189.179.133:3000/api/getStockQuantitiesByid/${customer.idStoreSelected}`
+          `https://api.simotakhfid.ma:3000/api/getStockQuantitiesByid/${customer.idStoreSelected}`
         );
         const data = await response.json();
 

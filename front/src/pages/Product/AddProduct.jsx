@@ -34,8 +34,8 @@ const AddProduct = () => {
     const fetchData = async () => {
       try {
         const [storesRes, categoriesRes] = await Promise.all([
-          axios.get("http://5.189.179.133:3000/api/stores"),
-          axios.get("http://5.189.179.133:3000/api/categorys"),
+          axios.get("https://api.simotakhfid.ma:3000/api/stores"),
+          axios.get("https://api.simotakhfid.ma:3000/api/categorys"),
         ]);
         setStores(storesRes.data);
         setCategories(categoriesRes.data);
@@ -80,7 +80,7 @@ const AddProduct = () => {
 
     try {
       // Create a new product
-      const productRes = await axios.post("http://5.189.179.133:3000/api/products", productData);
+      const productRes = await axios.post("https://api.simotakhfid.ma:3000/api/products", productData);
 
       // Create a store-product association
       const storeProductData = {
@@ -89,7 +89,7 @@ const AddProduct = () => {
         quantity: parseInt(productData.quantity, 10),
       };
 
-      await axios.post("http://5.189.179.133:3000/api/store-products/add", storeProductData);
+      await axios.post("https://api.simotakhfid.ma:3000/api/store-products/add", storeProductData);
 
       // Close modal and refresh page
       closeModal();

@@ -30,7 +30,7 @@ const DownloadExcelButtonProducts = () => {
       const token = localStorage.getItem("token");
       
       const response = await axios({
-        url: "http://5.189.179.133:3000/api/downloadProductsExcel",
+        url: "https://api.simotakhfid.ma:3000/api/downloadProductsExcel",
         method: "GET",
         responseType: "blob", // Important for handling file downloads
         headers: {

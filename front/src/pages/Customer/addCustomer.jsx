@@ -54,7 +54,7 @@ const AddCustomer = () => {
     }
 
     try {
-      await axios.post('http://5.189.179.133:3000/api/customers', formData);
+      await axios.post('https://api.simotakhfid.ma:3000/api/customers', formData);
       alert('Customer added successfully!');
       navigate('/customer'); // Navigate back to the customers list
     } catch (err) {

@@ -14,7 +14,7 @@ const EditOrder = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await axios.get(`http://5.189.179.133:3000/api/orders/${id}`);
+        const response = await axios.get(`https://api.simotakhfid.ma:3000/api/orders/${id}`);
         setOrder(response.data);
         // Set the default payment type from the backend
         setPaymentType(response.data.payment_type);
@@ -31,7 +31,7 @@ const EditOrder = () => {
     setIsSubmitting(true);
     try {
       const orderData = { payment_type: paymentType };
-      await axios.put(`http://5.189.179.133:3000/api/orders/${id}`, orderData);
+      await axios.put(`https://api.simotakhfid.ma:3000/api/orders/${id}`, orderData);
       alert('Order updated successfully!');
       navigate('/orders'); // Redirect to orders page
     } catch (error) {

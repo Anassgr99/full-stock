@@ -22,7 +22,7 @@ const StoreChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://5.189.179.133:3000/api/orders", {
+        const response = await fetch("https://api.simotakhfid.ma:3000/api/orders", {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,

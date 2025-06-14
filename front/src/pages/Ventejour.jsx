@@ -15,8 +15,8 @@ const VenteJour = () => {
       try {
         // 1) Fetch all orders + all products in parallel
         const [ordersResponse, productsResponse] = await Promise.all([
-          axios.get("http://5.189.179.133:3000/api/orders"),
-          axios.get("http://5.189.179.133:3000/api/products"),
+          axios.get("https://api.simotakhfid.ma:3000/api/orders"),
+          axios.get("https://api.simotakhfid.ma:3000/api/products"),
         ]);
 
         const rows = ordersResponse.data;       // array of flattened order→product rows

@@ -21,7 +21,7 @@ const HomeStore = () => {
       try {
         const token = localStorage.getItem("token"); // ✅ جلب التوكن
   
-        const response = await fetch("http://5.189.179.133:3000/api/stores", {
+        const response = await fetch("https://api.simotakhfid.ma:3000/api/stores", {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`, // ✅ إضافة التوكن فـ الهيدر
