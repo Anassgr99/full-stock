@@ -54,7 +54,7 @@ const CartItems = () => {
         };
   
         const response = await axios.post(
-          "https://api.simotakhfid.ma:3000/api/orders",
+          "https://api.simotakhfid.ma/api/orders",
           orderData
         );
        
@@ -105,7 +105,7 @@ const CartItems = () => {
           })),
         };
         const response = await axios.post(
-          "https://api.simotakhfid.ma:3000/api/orders",
+          "https://api.simotakhfid.ma/api/orders",
           orderData
         );
         toast.success(
@@ -148,7 +148,7 @@ const CartItems = () => {
 
     try {
       // Send the returnData to your backend API
-      await axios.post("https://api.simotakhfid.ma:3000/api/returns", returnData);
+      await axios.post("https://api.simotakhfid.ma/api/returns", returnData);
       toast.success("Return processed successfully!", {
         position: "top-center",
         autoClose: 5000,

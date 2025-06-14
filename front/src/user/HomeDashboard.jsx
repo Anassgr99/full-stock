@@ -251,7 +251,7 @@ const Cart = ({ cart, dispatch, handlePayment, product, theme }) => {
   // this useEffect to fetch customers on component mount
   useEffect(() => {
     axios
-      .get("https://api.simotakhfid.ma:3000/api/customers")
+      .get("https://api.simotakhfid.ma/api/customers")
       .then((response) => {
         setCustomers(response.data);
         // Set default customer to first in list (id 1)
@@ -265,7 +265,7 @@ const Cart = ({ cart, dispatch, handlePayment, product, theme }) => {
   useEffect(() => {
     if (showModal) {
       axios
-        .get("https://api.simotakhfid.ma:3000/api/customers")
+        .get("https://api.simotakhfid.ma/api/customers")
         .then((response) => setCustomers(response.data))
         // .catch((error) => console.error("Error fetching customers:", error));
     }
@@ -340,7 +340,7 @@ const Cart = ({ cart, dispatch, handlePayment, product, theme }) => {
             note: returnNote || "Bulk return from cart",
           };
           const response = await axios.post(
-            "https://api.simotakhfid.ma:3000/api/returns", // Updated endpoint
+            "https://api.simotakhfid.ma/api/returns", // Updated endpoint
             returnData
           );
           if (response.status !== 201) {
@@ -783,7 +783,7 @@ const HomeDashboard = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("https://api.simotakhfid.ma:3000/api/categorys/",{
+        const response = await fetch("https://api.simotakhfid.ma/api/categorys/",{
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`, // ✅ إضافة التوكن فـ الهيدر
@@ -806,7 +806,7 @@ const HomeDashboard = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.simotakhfid.ma:3000/api/getStockQuantitiesByid/${id}`,
+          `https://api.simotakhfid.ma/api/getStockQuantitiesByid/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -898,7 +898,7 @@ const HomeDashboard = () => {
         })),
       };
       const response = await axios.post(
-        "https://api.simotakhfid.ma:3000/api/orders",
+        "https://api.simotakhfid.ma/api/orders",
         orderData,
         {
           headers: {

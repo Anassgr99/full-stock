@@ -55,7 +55,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("https://api.simotakhfid.ma:3000/api/products")
+      .get("https://api.simotakhfid.ma/api/products")
       .then((res) => setProducts(res.data))
       .catch(() => alert("Erreur lors du chargement des produits"));
   }, []);
@@ -63,7 +63,7 @@ const Products = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm("Supprimer ce produit ?")) return;
     try {
-      await axios.delete(`https://api.simotakhfid.ma:3000/api/products/${id}`);
+      await axios.delete(`https://api.simotakhfid.ma/api/products/${id}`);
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch {
       alert("Erreur de suppression.");

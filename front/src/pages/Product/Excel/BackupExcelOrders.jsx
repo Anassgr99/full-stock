@@ -24,7 +24,7 @@ const DownloadOrdersExcelButton = () => {
       setStatus("Téléchargement en cours...");
       const token = localStorage.getItem("token");
       const resp = await axios.get(
-        "https://api.simotakhfid.ma:3000/api/downloadOrdersExcel",
+        "https://api.simotakhfid.ma/api/downloadOrdersExcel",
         {
           responseType: "blob",
           headers: { Authorization: `Bearer ${token}` },

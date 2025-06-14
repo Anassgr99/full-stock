@@ -39,7 +39,7 @@ const ExcelOptionsFirstTime = () => {
     try {
       setUploadStatus("Uploading...");
       const response = await axios.post(
-        "https://api.simotakhfid.ma:3000/api/uploadExcelFirstTime",
+        "https://api.simotakhfid.ma/api/uploadExcelFirstTime",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

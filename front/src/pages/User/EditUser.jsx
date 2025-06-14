@@ -23,7 +23,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const response = await axios.get(`https://api.simotakhfid.ma:3000/api/users/${id}`);
+        const response = await axios.get(`https://api.simotakhfid.ma/api/users/${id}`);
         setCustomerData(response.data);
       } catch (error) {
         alert("Erreur de chargement des données.");
@@ -40,7 +40,7 @@ const EditUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://api.simotakhfid.ma:3000/api/users/${id}`, customerData);
+      await axios.put(`https://api.simotakhfid.ma/api/users/${id}`, customerData);
       alert("Utilisateur mis à jour avec succès !");
       navigate(`/showUser/${id}`);
     } catch (error) {

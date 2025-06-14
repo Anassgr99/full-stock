@@ -15,7 +15,7 @@ const Showcategories = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/categorys");
+        const response = await axios.get("https://api.simotakhfid.ma/api/categorys");
         setProducts(response.data); // Set fetched products
         //console.log(response.data);
       } catch (error) {
@@ -28,8 +28,8 @@ const Showcategories = () => {
   // Delete product by ID
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`https://api.simotakhfid.ma:3000/api/categorys/${id}`);
-      const response = await axios.get("https://api.simotakhfid.ma:3000/api/categorys");
+      await axios.delete(`https://api.simotakhfid.ma/api/categorys/${id}`);
+      const response = await axios.get("https://api.simotakhfid.ma/api/categorys");
       setProducts(response.data); // Update state with the new data
 
       alert("Category deleted successfully!");

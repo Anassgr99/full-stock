@@ -18,7 +18,7 @@ export const Customer = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/customers");
+        const response = await axios.get("https://api.simotakhfid.ma/api/customers");
         setCustomers(response.data);
       } catch (error) {
         console.error("Error fetching customers:", error);
@@ -29,7 +29,7 @@ export const Customer = () => {
 
   const deleteCustomer = async (id) => {
     try {
-      await axios.delete(`https://api.simotakhfid.ma:3000/api/customers/${id}`);
+      await axios.delete(`https://api.simotakhfid.ma/api/customers/${id}`);
       setCustomers(customers.filter((customer) => customer.id !== id));
       alert("Client supprimé avec succès !");
     } catch (error) {

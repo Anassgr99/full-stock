@@ -39,7 +39,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/Orders");
+        const response = await axios.get("https://api.simotakhfid.ma/api/Orders");
         const formattedData = response.data.map((order) => ({
           ...order,
           order_date: formatDate(order.order_date),

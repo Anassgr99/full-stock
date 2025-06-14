@@ -23,7 +23,7 @@ const ReduceQuantityForm = ({ storeId, productId, currentQuantity, onClose }) =>
 
     try {
       const response = await axios.post(
-        "https://api.simotakhfid.ma:3000/api/store-products/reduce",
+        "https://api.simotakhfid.ma/api/store-products/reduce",
         {
           store_id: storeId,
           product_id: productId,

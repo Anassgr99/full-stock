@@ -21,7 +21,7 @@ const ShowUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`https://api.simotakhfid.ma:3000/api/users/${id}`);
+        const response = await axios.get(`https://api.simotakhfid.ma/api/users/${id}`);
         setUser(response.data);
       } catch (error) {
         alert("Erreur lors du chargement de l'utilisateur.");

@@ -20,7 +20,7 @@ const ShowOrder = () => {
     const fetchOrder = async () => {
       try {
         const response = await axios.get(
-          `https://api.simotakhfid.ma:3000/api/orders/${id}`
+          `https://api.simotakhfid.ma/api/orders/${id}`
         );
         setOrder(response.data);
       } catch (error) {

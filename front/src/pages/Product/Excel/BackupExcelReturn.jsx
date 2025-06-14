@@ -30,7 +30,7 @@ const DownloadRetournerExcelButton = () => {
       const token = localStorage.getItem("token");
       
       const response = await axios({
-        url: "https://api.simotakhfid.ma:3000/api/downloadRetournerExcel", // new route
+        url: "https://api.simotakhfid.ma/api/downloadRetournerExcel", // new route
         method: "GET",
         responseType: "blob", // Important for handling file downloads
         headers: {

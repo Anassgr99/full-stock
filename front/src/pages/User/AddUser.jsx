@@ -24,7 +24,7 @@ const AddUser = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/stores");
+        const response = await axios.get("https://api.simotakhfid.ma/api/stores");
         setStores(response.data);
       } catch (error) {
         //console.error("Error fetching stores:", error);
@@ -57,7 +57,7 @@ const AddUser = () => {
     }
 
     try {
-      const response = await axios.post("https://api.simotakhfid.ma:3000/api/users", userData);
+      const response = await axios.post("https://api.simotakhfid.ma/api/users", userData);
       setAlertMessage("Employé ajouté avec succès !");
       //console.log("User added successfully:", response.data);
 

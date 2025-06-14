@@ -35,7 +35,7 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `https://api.simotakhfid.ma:3000/api/products/${id}`
+          `https://api.simotakhfid.ma/api/products/${id}`
         );
         setProduct(response.data);
       } catch (error) {
@@ -45,7 +45,7 @@ const EditProduct = () => {
     };
     const fetchUnits = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/unit/");
+        const response = await axios.get("https://api.simotakhfid.ma/api/unit/");
         setUnits(response.data);
       } catch (error) {
         //console.error("Error fetching units:", error);
@@ -53,7 +53,7 @@ const EditProduct = () => {
     };
     const fetchCategory = async () => {
       try {
-        const response = await axios.get("https://api.simotakhfid.ma:3000/api/categorys/");
+        const response = await axios.get("https://api.simotakhfid.ma/api/categorys/");
         setCategory(response.data);
       } catch (error) {
         //console.error("Error fetching categories:", error);
@@ -104,7 +104,7 @@ const EditProduct = () => {
     const { id, created_at, updated_at, category_name, unit_name, ...productToUpdate } = product;
 
     try {
-      await axios.put(`https://api.simotakhfid.ma:3000/api/products/${id}`, productToUpdate);
+      await axios.put(`https://api.simotakhfid.ma/api/products/${id}`, productToUpdate);
       alert("Product updated successfully!");
       navigate("/products"); // Redirect to the product list
     } catch (error) {

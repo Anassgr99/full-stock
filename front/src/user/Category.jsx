@@ -16,7 +16,7 @@ const Category = () => {
  //console.log("Available icons:", Object.keys(icons));
   useEffect(() => {
     // Fetch categories from backend
-    fetch('https://api.simotakhfid.ma:3000/api/categorys')
+    fetch('https://api.simotakhfid.ma/api/categorys')
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => //console.error('Error fetching categories:', error));
@@ -35,7 +35,7 @@ const Category = () => {
   }, [searchQuery, categoryDetails]);
 
   const getCategoryDetails = (categoryId) => {
-    fetch(`https://api.simotakhfid.ma:3000/api/productsC/${categoryId}`)
+    fetch(`https://api.simotakhfid.ma/api/productsC/${categoryId}`)
       .then((response) => response.json())
       .then((data) => {
         setCategoryDetails(data);
